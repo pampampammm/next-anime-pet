@@ -1,0 +1,27 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  width: 340px;
+  border: 1px;
+}
+
+.inputLoading {
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.error {
+  background-color: #560000;
+  transition: background 0.2s ease;
+}
+
+.list {
+  position: absolute;
+  top: 28px;
+  width: 380px;
+  z-index: 1;
+}

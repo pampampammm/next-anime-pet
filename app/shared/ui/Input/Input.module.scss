@@ -1,0 +1,46 @@
+.input {
+    cursor: pointer;
+    padding: 7px;
+    border-radius: 7px;
+
+    &:hover {
+        opacity: 0.8;
+        fill-opacity: 0.8;
+        stroke-opacity: 0.8;
+    }
+
+    &:focus {
+        outline: 1px;
+    }
+}
+
+
+.clear {
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.clearInverted {
+    border: none;
+    outline: none;
+}
+
+.outline {
+    background: none;
+}
+
+.outlineInverted {
+}
+
+.background {
+    border: none;
+}
+
+.backgroundInverted {
+
+}
+
+.disabled {
+    opacity: 0.5;
+}

@@ -1,0 +1,32 @@
+.wrapper {
+}
+
+.input {
+  padding: 7px;
+  border: 1px;
+}
+
+.list {
+  display: inline-block;
+  list-style: none;
+  transition: display 0.2s ease;
+}
+
+.listItem {
+  border-radius: 7px;
+
+  &:hover {
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+}
+
+.animeItem {
+  display: flex;
+}
+
+.rating {
+  text-align: left;
+  color: green;
+  margin-left: 14px;
+}
