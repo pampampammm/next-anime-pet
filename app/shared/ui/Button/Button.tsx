@@ -1,6 +1,6 @@
 'use client'
 
-import React, { ButtonHTMLAttributes, forwardRef, memo } from 'react'
+import React, { ButtonHTMLAttributes, forwardRef, memo, RefObject } from 'react'
 
 import classNames from 'classnames'
 
@@ -28,16 +28,17 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	className?: string
 	size?: ButtonSize
 	theme?: ButtonTheme
+	myRef?: RefObject<HTMLButtonElement>
 }
 
-// eslint-disable-next-line react/display-name
-export const Button = forwardRef((props: ButtonProps, ref) => {
+export const Button = (props: ButtonProps) => {
 	const {
 		className,
 		children,
 		disabled,
 		size = ButtonSize.M,
 		theme = ButtonTheme.OUTLINE,
+		myRef,
 		...otherProps
 	} = props
 
@@ -52,9 +53,10 @@ export const Button = forwardRef((props: ButtonProps, ref) => {
 			type="button"
 			className={classNames(styles.button, mods, [className])}
 			disabled={disabled}
+			ref={myRef}
 			{...otherProps}
 		>
 			{children}
 		</button>
 	)
-})
+}

@@ -5,8 +5,9 @@ import React from 'react'
 import { useAnimeCompilation } from '../../model/services/useAnimeCompilation/useAnimeCompilation'
 import AnimeRow from '../RowList/AnimeRow/AnimeRow'
 
-import styles from './AnimeSection.module.scss'
 import { MaterialIconName } from '@/app/shared/icons/icons'
+
+import styles from './AnimeSection.module.scss'
 
 const rowsNames: Record<number, { name: string; icon: MaterialIconName }> = {
 	0: { name: 'Current Week', icon: 'MdCalendarToday' },

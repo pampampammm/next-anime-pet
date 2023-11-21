@@ -5,8 +5,8 @@
 }
 
 .skeleton {
-  width: 900px;
-  height: 185px;
+  width: var(--row-item-width);
+  height: var(--row-item-height);
   background: #1a1a1a;
   background: linear-gradient(110deg, #1a1a1a 8%, #282828 18%, #1a1a1a 33%);
   border-radius: 5px;

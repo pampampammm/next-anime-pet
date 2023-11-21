@@ -10,14 +10,14 @@ import { Image } from '@/app/shared/ui/Image'
 import { AnimatePresence, motion } from 'framer-motion'
 import classNames from 'classnames'
 
-import styles from './RowListItem.module.scss'
+import styles from './AnimeCard.module.scss'
 
 interface ItemProps {
 	item: Anime
 	className?: string
 }
 
-const RowListItem = ({ item, className }: ItemProps) => {
+const AnimeCard = ({ item, className }: ItemProps) => {
 	const ref = useRef<HTMLDivElement | null>(null)
 	const [showDetails] = useMouseView(ref)
 
@@ -41,7 +41,7 @@ const RowListItem = ({ item, className }: ItemProps) => {
 			className={classNames(styles.rowBlock, [className])}
 			initial={{ opacity: 0, scale: 0.9 }}
 			animate={{ opacity: 1, scale: 1 }}
-			whileHover={{ scale: [null, 1.1] }}
+			whileHover={{ scale: [null, 1.05] }}
 		>
 			<Image
 				className={styles.image}
@@ -75,4 +75,4 @@ const RowListItem = ({ item, className }: ItemProps) => {
 	)
 }
 
-export default RowListItem
+export default AnimeCard

@@ -9,23 +9,18 @@ interface SkeletonProps {
 	amount?: number
 }
 
-const Skeleton = (props: SkeletonProps) => {
+const SkeletonCard = (props: SkeletonProps) => {
 	const { amount = 6, skeletonClassName } = props
 
 	return (
 		<motion.div
 			initial={{ opacity: 1, scale: 1 }}
-			animate={{ opacity: 0, scale: 0.9 }}
+			exit={{ opacity: 0, scale: 0.9 }}
 			className={styles.wrapper}
 		>
-			{new Array(amount).fill(null).map((item, index) => (
-				<div
-					className={classNames(styles.skeleton, [skeletonClassName])}
-					key={index}
-				/>
-			))}
+			<div className={classNames(styles.skeleton, [skeletonClassName])} />
 		</motion.div>
 	)
 }
 
-export default Skeleton
+export default SkeletonCard

@@ -2,15 +2,15 @@
 
 import React from 'react'
 
-import { Anime } from '@/app/entity/Anime'
+import { Anime, AnimeCard } from '@/app/entity/Anime'
 
 import { MotionConfig } from 'framer-motion'
-import Skeleton from '../Skeleton/Skeleton'
-import RowListItem from '../RowListItem/RowListItem'
 
-import styles from './AnimeRow.module.scss'
 import { MaterialIconName } from '@/app/shared/icons/icons'
 import { MaterialIcon } from '@/app/shared/ui/Icon/Icon'
+
+import styles from './AnimeRow.module.scss'
+import SkeletonCard from '@/app/entity/Anime/ui/AnimeCard/Skeleton/SkeletonCard'
 
 interface ListProps {
 	data?: Anime[]
@@ -24,7 +24,15 @@ const AnimeRow = (props: ListProps) => {
 	const { className, data, isLoading, title, icon } = props
 
 	if (isLoading || !data) {
-		return <Skeleton skeletonClassName={styles.item} />
+		return (
+			<div className={styles.wrapper}>
+				<div className={styles.grid}>
+					{new Array(6).fill(null).map((item, index) => (
+						<SkeletonCard key={index} />
+					))}
+				</div>
+			</div>
+		)
 	}
 
 	return (
@@ -32,16 +40,14 @@ const AnimeRow = (props: ListProps) => {
 			{icon && <MaterialIcon name={icon} />}
 			<strong className={styles.title}>{title && title}</strong>
 			<div className={styles.row}>
-				<MotionConfig>
-					{data &&
-						data.map((item) => (
-							<RowListItem
-								className={styles.item}
-								item={item}
-								key={item.id}
-							/>
-						))}
-				</MotionConfig>
+				{data &&
+					data.map((item) => (
+						<AnimeCard
+							className={styles.item}
+							item={item}
+							key={item.id}
+						/>
+					))}
 			</div>
 		</div>
 	)
