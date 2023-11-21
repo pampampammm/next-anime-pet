@@ -1,21 +1,23 @@
 .wrapper {
-  margin-top: 14px;
-  display: flex;
-  gap: 14px;
+  display: block;
 }
 
 .skeleton {
-  width: 900px;
-  height: 185px;
-  background: #1a1a1a;
+  width: 700px;
+  height: 160px;
+  margin-bottom: 14px;
+  border-radius: var(--border-radius);
+  display: flex;
+  box-sizing: border-box;
   background: linear-gradient(110deg, #1a1a1a 8%, #282828 18%, #1a1a1a 33%);
-  border-radius: 5px;
   background-size: 200% 100%;
   animation: 1.5s shine linear infinite;
 }
+
 
 @keyframes shine {
   to {
     background-position-x: -200%;
   }
 }
+

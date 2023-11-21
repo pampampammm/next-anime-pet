@@ -31,14 +31,14 @@ export const AnimeService = {
 			`https://kitsu.io/api/edge/anime?page[limit]=${limit}&page[offset]=${page}&sort=-user_count`
 		)
 	},
-	async getMediaCount(page: number, limit: number) {
+	async getFollowersCount(page: number, limit: number) {
 		return axiosAPI.get<AnimeData>(
-			`https://kitsu.io/api/edge/anime?page[limit]=${limit}&page[offset]=${page}&sort=-total_media_count`
+			`https://kitsu.io/api/edge/anime?page[limit]=${limit}&page[offset]=${page}&sort=-followersCount`
 		)
 	},
-	async getStatus(page: number, limit: number) {
+	async getUpcoming(page: number, limit: number) {
 		return axiosAPI.get<AnimeData>(
-			`https://kitsu.io/api/edge/anime?page[limit]=${limit}&page[offset]=${page}&sort=-average_rating`
+			`https://kitsu.io/api/edge/anime?page[limit]=${limit}&page[offset]=${page}&filter[status]=upcoming`
 		)
 	},
 }

@@ -4,9 +4,16 @@
   flex-direction: column;
 }
 
+.inputBlock {
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+}
+
 .input {
-  width: 340px;
-  border: 1px;
+  margin-left: 7px;
+  width: 390px;
+  border: var(--border-color);
 }
 
 .inputLoading {
@@ -20,8 +27,10 @@
 }
 
 .list {
+  box-sizing: border-box;
+
   position: absolute;
-  top: 28px;
-  width: 380px;
+  top: 35px;
+  width: 410px;
   z-index: 1;
 }

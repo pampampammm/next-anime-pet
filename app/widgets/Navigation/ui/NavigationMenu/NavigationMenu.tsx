@@ -16,7 +16,7 @@ const NavigationMenu = (props: MenuProps) => {
 
 	return (
 		<div className={styles.menu}>
-			<h1>{menu.title}</h1>
+			<h2>{menu.title}</h2>
 			<ul className={styles.list}>
 				{menu.items?.map((value) => (
 					<li key={value.link}>

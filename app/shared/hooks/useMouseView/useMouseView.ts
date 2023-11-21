@@ -37,7 +37,7 @@ export const useMouseView = (targetRef?: RefObject<HTMLDivElement> | null) => {
 		}
 
 		ref.current = targetRef.current
-	}, [targetRef])
+	}, [])
 
 	useLayoutEffect(() => {
 		if (!ref.current) {

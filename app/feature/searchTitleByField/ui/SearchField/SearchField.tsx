@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useLayoutEffect, useRef, useState } from 'react'
 
 import { useSearch } from '../../model/service/useSearch/useSearch'
 
@@ -10,13 +10,16 @@ import Input from '@/app/shared/ui/Input/Input'
 
 import classNames from 'classnames'
 import styles from './SearchField.module.scss'
+import { MaterialIcon } from '@/app/shared/ui/Icon/Icon'
 
 interface FieldProps {
 	className?: string
 }
 
 const SearchField = ({ className }: FieldProps) => {
-	const { queryData, handleSetInput } = useSearch()
+	const [isFocused, setFocused] = useState<boolean>(false)
+	const { queryData, handleSetInput } = useSearch(isFocused)
+
 	const { data, isLoading, isError, isSuccess } = queryData
 
 	const inputMods: Record<string, boolean> = {
@@ -26,13 +29,26 @@ const SearchField = ({ className }: FieldProps) => {
 
 	return (
 		<div className={classNames(styles.wrapper, [className])}>
-			<Input
-				placeholder={'Search...'}
-				className={classNames(styles.input, inputMods)}
-				onChange={handleSetInput}
-			/>
-			{isSuccess && (
-				<SearchAnimeList className={styles.list} items={data} />
+			<div className={styles.inputBlock}>
+				<MaterialIcon name={'MdSearch'} />
+				<Input
+					placeholder={'Search...'}
+					className={classNames(styles.input, inputMods)}
+					onChange={handleSetInput}
+					onFocus={() => setFocused(true)}
+					onBlur={() => {
+						setFocused(false)
+						console.log('asffassadfgdasgsgdgwsddfhbs')
+					}}
+				/>
+			</div>
+
+			{isSuccess && isFocused && (
+				<SearchAnimeList
+					className={styles.list}
+					items={data}
+					isLoading={isLoading}
+				/>
 			)}
 		</div>
 	)

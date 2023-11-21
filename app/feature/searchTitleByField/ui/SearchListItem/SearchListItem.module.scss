@@ -1,0 +1,27 @@
+.listItem {
+  margin-bottom: 14px;
+  border-radius: 7px;
+  display: block;
+}
+
+.animeItem {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+
+  .rating {
+    position: absolute;
+    right: 7px;
+    text-align: left;
+    color: green;
+  }
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 7px;
+    color: var(--inverted-primary-text-color);
+
+  }
+}

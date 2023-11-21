@@ -13,16 +13,18 @@ const Skeleton = (props: SkeletonProps) => {
 	const { amount = 6, skeletonClassName } = props
 
 	return (
-		<div className={styles.wrapper}>
+		<motion.div
+			initial={{ opacity: 1, scale: 1 }}
+			animate={{ opacity: 0, scale: 0.9 }}
+			className={styles.wrapper}
+		>
 			{new Array(amount).fill(null).map((item, index) => (
-				<motion.div
+				<div
 					className={classNames(styles.skeleton, [skeletonClassName])}
 					key={index}
-					initial={{ opacity: 1, scale: 1 }}
-					animate={{ opacity: 0, scale: 0.5 }}
 				/>
 			))}
-		</div>
+		</motion.div>
 	)
 }
 

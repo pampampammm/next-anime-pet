@@ -2,17 +2,17 @@
 
 import React from 'react'
 
-import { useAnimeCompilation } from '@/app/pages/(main)/home/model/services/useAnimeCompilation/useAnimeCompilation'
-
-import RowList from '@/app/pages/(main)/home/ui/RowList/RowList'
+import { useAnimeCompilation } from '../../model/services/useAnimeCompilation/useAnimeCompilation'
+import AnimeRow from '../RowList/AnimeRow/AnimeRow'
 
 import styles from './AnimeSection.module.scss'
+import { MaterialIconName } from '@/app/shared/icons/icons'
 
-const rowsNames: Record<number, string> = {
-	0: 'Current Week',
-	1: 'Most Popular',
-	2: 'Best Ratting',
-	3: 'Ongoing',
+const rowsNames: Record<number, { name: string; icon: MaterialIconName }> = {
+	0: { name: 'Current Week', icon: 'MdCalendarToday' },
+	1: { name: 'Upcoming', icon: 'MdFireplace' },
+	2: { name: 'Best Ratting', icon: 'MdRateReview' },
+	3: { name: 'Ongoing', icon: 'MdCalendarMonth' },
 }
 
 const AnimeSection = () => {
@@ -21,11 +21,12 @@ const AnimeSection = () => {
 	return (
 		<section className={styles.section}>
 			{data.map((value, index) => (
-				<RowList
+				<AnimeRow
 					key={index}
 					data={value.data}
 					isLoading={value.isLoading}
-					title={rowsNames[index].toUpperCase()}
+					title={rowsNames[index].name}
+					icon={rowsNames[index].icon}
 				/>
 			))}
 		</section>

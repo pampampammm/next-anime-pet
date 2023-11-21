@@ -25,6 +25,11 @@ export const navigationInitialState: INavigationMenu = {
 			title: 'Project',
 			link: AppPaths.project,
 		},
+		{
+			icon: 'MdSave',
+			title: 'Discover',
+			link: AppPaths.discover,
+		},
 	],
 }
 

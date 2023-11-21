@@ -1,6 +1,13 @@
 'use client'
 
-import React, { InputHTMLAttributes, memo, useEffect, useRef } from 'react'
+import React, {
+	forwardRef,
+	InputHTMLAttributes,
+	memo,
+	RefObject,
+	useEffect,
+	useRef,
+} from 'react'
 
 import classNames from 'classnames'
 import styles from './Input.module.scss'
@@ -29,8 +36,10 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 	inputSize?: InputSize
 	theme?: InputTheme
 	icon?: MaterialIconName
+	myRef?: RefObject<HTMLInputElement>
 }
 
+// eslint-disable-next-line react/display-name
 const InputField = (props: InputProps) => {
 	const {
 		className,
@@ -43,17 +52,9 @@ const InputField = (props: InputProps) => {
 		inputSize = InputSize.XL,
 		disabled = false,
 		icon = 'SearchField',
+		myRef,
 		...rest
 	} = props
-
-	const ref = useRef(null)
-
-	useEffect(() => {
-		if (autoFocus) {
-			// @ts-ignore
-			ref.current?.focus()
-		}
-	}, [autoFocus])
 
 	const mods: Record<string, string | boolean> = {
 		[styles[theme]]: true,
@@ -69,7 +70,7 @@ const InputField = (props: InputProps) => {
 			type={type}
 			placeholder={placeholder}
 			disabled={disabled}
-			ref={ref}
+			ref={myRef}
 			{...rest}
 		/>
 	)

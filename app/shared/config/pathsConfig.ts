@@ -1,11 +1,11 @@
 export enum AppRoutes {
 	HOME = 'home',
 	PROJECT = 'project',
-	FAVORITES = 'favorites',
+	DISCOVER = 'discover',
 }
 
 export const AppPaths: Record<AppRoutes, string> = {
 	[AppRoutes.HOME]: '/pages/home',
 	[AppRoutes.PROJECT]: '/pages/project',
-	[AppRoutes.FAVORITES]: '/pages/favorites',
+	[AppRoutes.DISCOVER]: '/pages/discover',
 }

@@ -3,8 +3,8 @@
 import React, { ButtonHTMLAttributes, forwardRef, memo } from 'react'
 
 import classNames from 'classnames'
+
 import styles from './Button.module.scss'
-import { motion } from 'framer-motion'
 
 export enum ButtonTheme {
 	CLEAR = 'clear',

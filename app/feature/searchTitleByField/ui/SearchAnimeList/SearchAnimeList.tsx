@@ -10,15 +10,18 @@ import classNames from 'classnames'
 
 import styles from './SearchAnimeList.module.scss'
 import { motion } from 'framer-motion'
+import SearchListItem from '@/app/feature/searchTitleByField/ui/SearchListItem/SearchListItem'
+import { SearchedAnime } from '@/app/feature/searchTitleByField/model/types/types'
 
 interface ListProps {
-	items: Anime[]
+	items: SearchedAnime[]
+	isLoading: boolean
 	onClick?: (id: string) => void
 	className?: string
 }
 
 const SearchAnimeList = (props: ListProps) => {
-	const { className, items, onClick } = props
+	const { className, items, onClick, isLoading } = props
 
 	const handleAnimeClick = (id: string) => {
 		if (onClick) {
@@ -26,30 +29,15 @@ const SearchAnimeList = (props: ListProps) => {
 		}
 	}
 
-	if (items.length == 0) {
-		return null
+	if (isLoading) {
+		return <h1 className={styles.list}>loading...</h1>
 	}
 
 	return (
 		<ul className={classNames(styles.list, className)}>
 			{items.map((item) => {
-				return item.attributes.titles.en ? (
-					<motion.li
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						className={styles.listItem}
-						key={item.id}
-					>
-						<Button
-							className={styles.animeItem}
-							onClick={() => handleAnimeClick(item.id)}
-						>
-							<span>{item.attributes?.titles?.en}</span>
-							<h3 className={styles.rating}>
-								{item.attributes.popularityRank}
-							</h3>
-						</Button>
-					</motion.li>
+				return item.attributes.title ? (
+					<SearchListItem item={item} />
 				) : null
 			})}
 		</ul>

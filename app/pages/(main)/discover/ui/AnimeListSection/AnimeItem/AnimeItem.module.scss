@@ -1,0 +1,38 @@
+.wrapper {
+  margin-bottom: 14px;
+  border-radius: var(--border-radius);
+  display: flex;
+  box-sizing: border-box;
+}
+
+.img {
+  border-radius: var(--border-radius);
+}
+
+.content {
+  width: 600px;
+  display: flex;
+  justify-content: space-between;
+
+  .main {
+    margin-left: 14px;
+  }
+
+  h4 {
+    opacity: 0.6;
+  }
+}
+
+.user {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  .rank {
+    padding: var(--padding-primary);
+    color: #00c200;
+    background-color: var(--inverted-primary-bg-color);
+    border-radius: var(--border-radius);
+    margin-right: 14px;
+  }
+}

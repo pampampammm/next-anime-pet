@@ -4,29 +4,33 @@ import React from 'react'
 
 import { Anime } from '@/app/entity/Anime'
 
-import RowListItem from '../RowList/RowListItem/RowListItem'
-import Skeleton from './Skeleton/Skeleton'
-
-import styles from './RowList.module.scss'
 import { MotionConfig } from 'framer-motion'
+import Skeleton from '../Skeleton/Skeleton'
+import RowListItem from '../RowListItem/RowListItem'
+
+import styles from './AnimeRow.module.scss'
+import { MaterialIconName } from '@/app/shared/icons/icons'
+import { MaterialIcon } from '@/app/shared/ui/Icon/Icon'
 
 interface ListProps {
 	data?: Anime[]
 	isLoading?: boolean
 	title?: string
+	icon?: MaterialIconName
 	className?: string
 }
 
-const RowList = (props: ListProps) => {
-	const { className, data, isLoading, title } = props
+const AnimeRow = (props: ListProps) => {
+	const { className, data, isLoading, title, icon } = props
 
 	if (isLoading || !data) {
 		return <Skeleton skeletonClassName={styles.item} />
 	}
 
 	return (
-		<>
-			<strong>{title && title}</strong>
+		<div className={styles.wrapper}>
+			{icon && <MaterialIcon name={icon} />}
+			<strong className={styles.title}>{title && title}</strong>
 			<div className={styles.row}>
 				<MotionConfig>
 					{data &&
@@ -39,8 +43,8 @@ const RowList = (props: ListProps) => {
 						))}
 				</MotionConfig>
 			</div>
-		</>
+		</div>
 	)
 }
 
-export default RowList
+export default AnimeRow
