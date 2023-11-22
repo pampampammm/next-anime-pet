@@ -1,6 +1,9 @@
-import Meta from '../../../meta/ui/Meta'
-import AnimeListSection from '@/app/pages/(main)/discover/ui/AnimeListSection/AnimeListSection'
+import type { NextPage } from 'next'
+
+import { Meta } from '@/app/meta'
+
 import FiltersSection from './ui/FiltersSection/FiltersSection'
+import AnimeListSection from './ui/AnimeListSection/AnimeListSection'
 
 export default function DiscoverPage() {
 	return (

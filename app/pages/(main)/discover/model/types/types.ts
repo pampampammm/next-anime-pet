@@ -1,5 +1,5 @@
 import { Anime } from '@/app/entity/Anime'
 
-export interface FilterData {
+export interface FilterDataResponse {
 	data: Anime[]
 }

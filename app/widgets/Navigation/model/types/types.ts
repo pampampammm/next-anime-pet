@@ -13,7 +13,7 @@ export interface INavigationMenu {
 }
 
 export const navigationInitialState: INavigationMenu = {
-	title: 'ANIME EBANOE',
+	title: 'ONIME',
 	items: [
 		{
 			icon: 'MdAddHomeWork',

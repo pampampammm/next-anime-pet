@@ -26,7 +26,7 @@ const AnimeRow = (props: ListProps) => {
 	if (isLoading || !data) {
 		return (
 			<div className={styles.wrapper}>
-				<div className={styles.grid}>
+				<div className={styles.skelenons}>
 					{new Array(6).fill(null).map((item, index) => (
 						<SkeletonCard key={index} />
 					))}

@@ -1,7 +1,7 @@
 import { axiosAPI } from '@/app/shared/api/api'
 import { Anime } from '@/app/entity/Anime'
 
-interface AnimeData {
+interface AnimeDataResponse {
 	data: Anime[]
 	meta?: number
 }
@@ -17,27 +17,27 @@ export enum ANIME_STATUS_TYPE {
 
 export const AnimeService = {
 	async getBySearchAll(searchString: string) {
-		return axiosAPI.get<AnimeData>(
+		return axiosAPI.get<AnimeDataResponse>(
 			`https://kitsu.io/api/edge/anime?filter[text]=${searchString})`
 		)
 	},
 	async getAverageRating(page: number, limit: number) {
-		return axiosAPI.get<AnimeData>(
+		return axiosAPI.get<AnimeDataResponse>(
 			`https://kitsu.io/api/edge/anime?page[limit]=${limit}&page[offset]=${page}&sort=-average_rating`
 		)
 	},
 	async getUserCount(page: number, limit: number) {
-		return axiosAPI.get<AnimeData>(
+		return axiosAPI.get<AnimeDataResponse>(
 			`https://kitsu.io/api/edge/anime?page[limit]=${limit}&page[offset]=${page}&sort=-user_count`
 		)
 	},
 	async getFollowersCount(page: number, limit: number) {
-		return axiosAPI.get<AnimeData>(
+		return axiosAPI.get<AnimeDataResponse>(
 			`https://kitsu.io/api/edge/anime?page[limit]=${limit}&page[offset]=${page}&sort=-followersCount`
 		)
 	},
 	async getUpcoming(page: number, limit: number) {
-		return axiosAPI.get<AnimeData>(
+		return axiosAPI.get<AnimeDataResponse>(
 			`https://kitsu.io/api/edge/anime?page[limit]=${limit}&page[offset]=${page}&filter[status]=upcoming`
 		)
 	},
