@@ -24,24 +24,25 @@ export enum DropdownSize {
 	XL = 'size_xl',
 }
 
-export interface ListItem {
+export interface ListItem<T> {
 	id?: number | string
 	label: string
+	value: T
 	color?: string
 }
 
-export interface IPropsDropdownList {
-	items: ListItem[]
+export interface IPropsDropdownList<T> {
+	items: ListItem<T>[]
 	icon?: MaterialIconName
 	className?: string
-	onChange?: (value: ListItem) => void
+	onChange?: (value: ListItem<T>) => void
 }
 
-const Dropdown = (props: IPropsDropdownList) => {
+const Dropdown = <T,>(props: IPropsDropdownList<T>) => {
 	const { className, items, onChange, icon } = props
 
-	const [panelItems, setPanelItems] = useState<ListItem[]>([])
-	const [panelItem, setPanelItem] = useState<ListItem>()
+	const [panelItems, setPanelItems] = useState<ListItem<T>[]>([])
+	const [panelItem, setPanelItem] = useState<ListItem<T>>()
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 
 	const buttonRef = useRef<HTMLButtonElement>(null)
@@ -69,12 +70,12 @@ const Dropdown = (props: IPropsDropdownList) => {
 		setIsOpen((prevState) => !prevState)
 	}
 
-	const onItemClick = (value: ListItem) => {
+	const onItemClick = (item: ListItem<T>) => {
 		if (onChange) {
-			onChange(value)
+			onChange(item)
 		}
 
-		setPanelItem(value)
+		setPanelItem(item)
 	}
 
 	const [title, itemsToRender] = useMemo(() => {

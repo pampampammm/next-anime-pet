@@ -1,0 +1,14 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+
+  margin-top: 14px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
+}

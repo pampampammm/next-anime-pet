@@ -1,0 +1,43 @@
+.rowBlock {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow: hidden;
+
+  width: var(--row-item-width);
+  height: var(--row-item-height);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.details {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-radius: 7px;
+
+  .rank {
+    margin: 7px;
+    padding: 7px;
+    border-radius: 7px;
+    color: #00c200;
+    background-color: #282828;
+  }
+
+  .title {
+    width: 100%;
+    padding: 7px;
+  }
+}

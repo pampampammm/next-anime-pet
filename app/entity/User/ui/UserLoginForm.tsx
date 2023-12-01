@@ -11,7 +11,7 @@ import {
 import { useSelector } from 'react-redux'
 import { getUser } from '@/app/entity/User/model/selectors/getUser'
 import { DynamicStoreReducerWrapper } from '@/app/shared/components/DynamicStoreReducerWrapper'
-import { userReducers } from '@/app/entity/User/model/slice/userSlice'
+import { userReducer } from '@/app/entity/User/model/slice/userSlice'
 
 const UserLoginForm = () => {
 	const dispatch = useAppDispatch()
@@ -22,27 +22,25 @@ const UserLoginForm = () => {
 	const isAuth = user !== null
 
 	return (
-		<DynamicStoreReducerWrapper reducerKey={'user'} reducer={userReducers}>
-			<div>
-				{isAuth && (
-					<Button
-						onClick={() => {
-							dispatch(
-								loginByEmail({
-									email: 'levashov1927@gmail.com',
-									password: 'mattvoy2002',
-									grant_type: 'password',
-								})
-							)
+		<div>
+			{isAuth && (
+				<Button
+					onClick={() => {
+						dispatch(
+							loginByEmail({
+								email: 'levashov1927@gmail.com',
+								password: 'mattvoy2002',
+								grant_type: 'password',
+							})
+						)
 
-							dispatch(getUserById({ id: '1444181' }))
-						}}
-					>
-						Login
-					</Button>
-				)}
-			</div>
-		</DynamicStoreReducerWrapper>
+						dispatch(getUserById({ id: '1444181' }))
+					}}
+				>
+					Login
+				</Button>
+			)}
+		</div>
 	)
 }
 

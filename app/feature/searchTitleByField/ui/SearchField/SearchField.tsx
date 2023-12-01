@@ -1,16 +1,16 @@
 'use client'
 
-import React, { useLayoutEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 
-import { useSearch } from '../../model/service/useSearch/useSearch'
+import SearchAnimeList from '../SearchAnimeList/SearchAnimeList'
+import { useSearch } from '../../model/services/useSearch/useSearch'
 
-import SearchAnimeList from '@/app/feature/searchTitleByField/ui/SearchAnimeList/SearchAnimeList'
-
+import { MaterialIcon } from '@/app/shared/ui/Icon/Icon'
 import Input from '@/app/shared/ui/Input/Input'
 
 import classNames from 'classnames'
+
 import styles from './SearchField.module.scss'
-import { MaterialIcon } from '@/app/shared/ui/Icon/Icon'
 
 interface FieldProps {
 	className?: string

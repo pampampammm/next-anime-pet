@@ -1,8 +1,3 @@
-export interface AnimeData {
-	data: Anime[]
-	meta?: number
-}
-
 export interface Anime {
 	id: string
 	attributes: AnimeAttributes
@@ -17,11 +12,11 @@ export interface AnimeAttributes {
 	slug: string
 	popularityRank: string
 	posterImage: {
-		tiny: string
-		small: string
-		medium: string
-		large: string
-		original: string
+		tiny?: string
+		small?: string
+		medium?: string
+		large?: string
+		original?: string
 	}
 	startDate: string | number
 	endDate: string

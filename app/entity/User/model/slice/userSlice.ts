@@ -11,7 +11,7 @@ export const getUserLCData = () => {
 	return null
 }
 const initialState: UserSchema = {
-	user: getUserLCData(),
+	user: null,
 	isLoading: false,
 }
 
@@ -41,4 +41,4 @@ export const userSlice = createSlice({
 })
 
 export const { actions: userActions } = userSlice
-export const { reducer: userReducers } = userSlice
+export const { reducer: userReducer } = userSlice

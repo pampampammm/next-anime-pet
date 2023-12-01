@@ -1,16 +1,16 @@
 'use client'
 
 import React from 'react'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import HeadProvider from '@/app/providers/HeadProvider/ui/HeadProvider'
-import { StoreProvider } from '@/app/providers/StoreProvider'
+import { StoreProvider } from '../StoreProvider'
+import { Navigation } from '@/app/widgets/Navigation'
 
 interface ProviderProps {
 	children: React.ReactNode
 }
 
-const queryClient = new QueryClient({
+const queryClientInstance = new QueryClient({
 	defaultOptions: {
 		queries: {
 			refetchOnWindowFocus: false,
@@ -21,7 +21,7 @@ const queryClient = new QueryClient({
 const MainProviders = ({ children }: ProviderProps) => {
 	return (
 		<StoreProvider>
-			<QueryClientProvider client={queryClient}>
+			<QueryClientProvider client={queryClientInstance}>
 				<ReactQueryDevtools initialIsOpen={false} />
 				{children}
 			</QueryClientProvider>

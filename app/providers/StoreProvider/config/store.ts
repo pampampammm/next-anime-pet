@@ -1,12 +1,12 @@
-import { configureStore, ReducersMapObject } from '@reduxjs/toolkit'
+import { filterReducer } from '@/app/feature/filters/model/slice/filterSlice'
+import { ReducersMapObject, configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
-import { createReducerManager } from './reducerManager'
 import { StateSchema } from './StateSchema'
-import { userReducers } from '@/app/entity/User/model/slice/userSlice'
+import { createReducerManager } from './reducerManager'
 
 export function createReduxStore() {
 	const rootReducer: ReducersMapObject<StateSchema> = {
-		user: userReducers,
+		filter: filterReducer,
 	}
 
 	const reducerManager = createReducerManager(rootReducer)

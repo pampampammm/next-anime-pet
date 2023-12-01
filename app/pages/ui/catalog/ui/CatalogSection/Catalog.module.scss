@@ -1,0 +1,34 @@
+.section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  margin-top: 14px;
+}
+
+.catalog {
+}
+
+.btns {
+  margin-left: 14px;
+  height: 100%;
+  width: 100%;
+  background: #282828;
+  right: 400px;
+  top: 0;
+  border-radius: var(--border-radius);
+}
+
+.list {
+  display: block;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  margin-bottom: 49px;
+}

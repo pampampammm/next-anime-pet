@@ -1,0 +1,7 @@
+export enum SORT_TYPE {
+	BY_DEFAULT = 0,
+	BY_RATTING,
+	BY_POPULARITY,
+	BY_DATE,
+	BY_NAME,
+}

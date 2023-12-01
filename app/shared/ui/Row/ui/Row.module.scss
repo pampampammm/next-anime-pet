@@ -1,0 +1,16 @@
+.wrapper {
+  display: block;
+  align-items: center;
+}
+
+.rowWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 21px;
+
+  margin-top: 14px;
+}
+
+.title{
+  margin-left: 14px;
+}

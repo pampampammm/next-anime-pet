@@ -7,6 +7,7 @@ import { INavigationItem } from '../../model/types/types'
 
 import classNames from 'classnames'
 import styles from './NavigationItem.module.scss'
+import { MaterialIcon } from '@/app/shared/ui/Icon/Icon'
 
 const NavigationItem: FC<{ item: INavigationItem }> = ({ item }) => {
 	const { link, icon, title } = item
@@ -20,6 +21,7 @@ const NavigationItem: FC<{ item: INavigationItem }> = ({ item }) => {
 
 	return (
 		<Link className={classNames(styles.link, mods)} href={hrefLink}>
+			{icon && <MaterialIcon name={icon} />}
 			<span>{title}</span>
 		</Link>
 	)

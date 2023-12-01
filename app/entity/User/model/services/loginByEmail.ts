@@ -94,6 +94,7 @@ export const loginByEmail = createAsyncThunk<AuthResponse, AuthPostParams>(
 		try {
 			const response = await AuthService.login(email, password)
 
+			// @ts-ignore
 			if (response.data.accessToken) {
 				saveTokensStorage(response.data)
 			}
