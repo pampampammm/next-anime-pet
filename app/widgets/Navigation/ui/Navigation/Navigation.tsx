@@ -13,7 +13,7 @@ const Navigation = () => {
 		<header className={styles.navigation}>
 			<NavigationMenu menu={navigationInitialState} />
 			<SearchField />
-			<UserLoginForm />
+			{/*<UserLoginForm />*/}
 			{/*<NavigationCategoryMenu />*/}
 		</header>
 	)

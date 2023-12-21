@@ -17,7 +17,7 @@ const getSelectedData = (response: AnimeDataResponse): AnimeCatalogItem[] => {
 		const { titles, posterImage, startDate, popularityRank } = attributes
 
 		const title = titles.en === '' ? titles.en : titles.en_jp
-		const subTitle = titles.ja_jp === '' ? titles.ja_jp : titles.en_jp
+		const subTitle = titles.ja_jp !== '' ? titles.ja_jp : titles.en_jp
 
 		const originalSizeImage = posterImage.original
 		const smallSizeImage = posterImage.tiny

@@ -15,14 +15,20 @@ import AnimeCard from '@/app/pages/ui/home/ui/AnimeCard/AnimeCard'
 import styles from './Slider.module.scss'
 import { AnimeItem } from '@/app/pages/model/types/types'
 import classNames from 'classnames'
+import SkeletonCard from '@/app/pages/ui/home/ui/AnimeCard/Skeleton/SkeletonCard'
 
 interface SliderProps {
 	data: AnimeItem[]
 	children?: ReactNode
 	isLoading: boolean
 	isSuccess: boolean
-	onSlideNext: () => void
-	onSlidePrevious: () => void
+	onSlideNext?: () => void
+	onSlidePrevious?: () => void
+	onItemsEnd?: () => void
+	leftButtonEnabled?: boolean
+	rightButtonEnabled?: boolean
+	itemsAmountToRender?: number
+	endOffset?: number
 }
 
 export interface SliderPage {
@@ -30,169 +36,209 @@ export interface SliderPage {
 	prevData?: number[]
 }
 
+const CardParams = {
+	height: 290,
+	width: 210 + 14,
+}
+
+function toInteger(number: number) {
+	return Math.round(
+		// round to nearest integer
+		Number(number) // type cast your input
+	)
+}
+
 const Slider = <T,>(props: SliderProps) => {
-	const { data, isLoading, onSlideNext, onSlidePrevious } = props
+	const {
+		data,
+		isLoading,
+		onSlideNext,
+		onSlidePrevious,
+		onItemsEnd,
+		leftButtonEnabled,
+		rightButtonEnabled,
+		endOffset = 0,
+		itemsAmountToRender = 10,
+	} = props
 
 	//const [itemsToRender, setItemsToRender] = useState<HomeAnimeItem[]>([])
-
-	const [leftButton, setLeftButton] = useState<boolean>(false)
-	const [rightButton, setRightButton] = useState<boolean>(true)
-	const [slideDirection, setSlideDirection] = useState<1 | -1>(1)
 
 	const [itemsAmount, setItemsAmount] = useState<number>(0)
 	const [slideOffset, setSlideOffset] = useState<number>(0)
 	const [slideStep] = useState<number>(1)
+	const [slidePages, setSlidesPage] = useState(0)
 
 	useEffect(() => {
 		if (data) {
 			setItemsAmount(data.length)
+			setSlidesPage(data.length / itemsAmountToRender)
 		}
-
-		// if (page === 0) {
-		// 	setLeftButton(false)
-		// 	return
-		// } else {
-		// 	setLeftButton(true)
-		// }
-		//
-		// if (page === itemsAmount) {
-		// 	setLeftButton(false)
-		// 	return
-		// } else {
-		// 	setLeftButton(true)
-		// }
 	}, [isLoading, data])
 
-	const [indexToRender] = useMemo(() => {
-		const numbers: number[] = []
+	const [transformPositionOffset] = useMemo(() => {
+		const allItemsWidth = itemsAmountToRender * CardParams.width
 
-		const max = itemsAmount - (itemsAmount % (slideOffset + slideStep))
+		const max = CardParams.width * itemsAmount - allItemsWidth
 
-		for (let i = slideOffset; i < slideOffset + slideStep; i++) {
-			// if (i < slideOffset + slideOffset) {
-			// }
-			numbers.push(i)
-		}
-
-		return [[...numbers]]
-	}, [itemsAmount, slideOffset])
-
-	const [transformOffset] = useMemo(() => {
-		const max = 140 * itemsAmount - 1400
-
-		const offset = slideOffset * 1400 <= 0 ? 0 : slideOffset * 1400
+		const offset =
+			slideOffset * allItemsWidth <= 0 ? 0 : slideOffset * allItemsWidth
 		const maxOffset = offset >= max ? max : offset
 
 		return [maxOffset]
 	}, [slideOffset, itemsAmount, slideStep])
 
+	const [indexToRender] = useMemo(() => {
+		const numbers: number[] = []
+
+		const min =
+			slideOffset * itemsAmountToRender + itemsAmountToRender >
+			itemsAmount
+				? itemsAmount - itemsAmountToRender
+				: slideOffset * itemsAmountToRender
+		const end = min + itemsAmountToRender
+
+		const start = min >= 0 ? min : min
+
+		for (let i = start; i < end; i++) {
+			numbers.push(toInteger(i))
+		}
+
+		return [[...numbers]]
+	}, [itemsAmount, slideOffset])
+
 	const handleSlide = (direction: 'next' | 'previous') => {
 		if (direction === 'next') {
-			setSlideDirection(1)
-			onSlideNext()
+			const isPagesWillEnd = slideOffset + slideStep >= slidePages
 
-			setSlideOffset((prevState) => prevState + slideStep)
+			if (isPagesWillEnd && onItemsEnd) {
+				onItemsEnd()
+				setSlideOffset((prevState) => prevState + slideStep)
+			}
+
+			if (!isPagesWillEnd) {
+				setSlideOffset((prevState) => prevState + slideStep)
+
+				if (onSlideNext) {
+					onSlideNext()
+				}
+			}
 		}
 
 		if (direction === 'previous') {
-			setSlideDirection(-1)
-			onSlidePrevious()
+			const page = slidePages
+			const offset = slideOffset + 1
 
-			if (slideOffset - slideStep >= 0) {
-				setSlideOffset((prevState) => prevState - slideStep)
-			}
+			const newValue = offset > page ? page - 1 : offset - slideStep
+			const value = newValue - 1 <= 0 ? 0 : newValue - 1
+
+			setSlideOffset(value)
 		}
 	}
 
 	const renderItemsByIndex = useMemo(() => {
 		if (isLoading) {
-			return <h1>Loading...</h1>
+			return null
 		}
 
-		return data.map((anime, index) => {
-			// const mods: Record<string, boolean> = {
-			// 	[styles.focusedItem]: !indexToRender.includes(index),
-			// }
+		const dataToRender = data.map((anime, index) => {
+			if (!indexToRender.includes(index)) {
+				return (
+					<motion.li
+						animate={{ scaleY: 0.8 }}
+						className={styles.slideItem}
+						key={anime.id}
+					>
+						<AnimeCard item={anime} />
+					</motion.li>
+				)
+			}
 
 			return (
-				<motion.li
-					key={anime.id}
-					className={classNames(styles.slideItem)}
-				>
-					<AnimeCard item={anime} isLoading={isLoading} />
-				</motion.li>
+				<li className={styles.slideItem} key={anime.id}>
+					<AnimeCard item={anime} />
+				</li>
 			)
 		})
-	}, [data, isLoading, slideOffset])
+
+		return (
+			<AnimatePresence>
+				<motion.ul
+					style={{ width: CardParams.width * itemsAmountToRender }}
+					animate={{
+						x: -transformPositionOffset,
+					}}
+					className={styles.rowWrapper}
+				>
+					{dataToRender}
+				</motion.ul>
+			</AnimatePresence>
+		)
+	}, [itemsAmount, data, isLoading, slideOffset])
 
 	return (
 		<article className={styles.wrapper}>
 			<div className={styles.buttons}>
-				<Button
+				<motion.div
 					className={styles.leftButton}
-					onClick={() => handleSlide('previous')}
+					whileHover={{ scale: 1.3 }}
 				>
-					<MaterialIcon name={'MdArrowLeft'} />
-				</Button>
-				<Button
-					className={styles.rightButton}
-					onClick={() => handleSlide('next')}
+					<Button
+						disabled={leftButtonEnabled}
+						className={styles.leftButton}
+						onClick={() => handleSlide('previous')}
+					>
+						<MaterialIcon name={'MdArrowLeft'} />
+					</Button>{' '}
+				</motion.div>
+				<motion.div
+					className={styles.leftButton}
+					whileHover={{ scale: 1.3 }}
 				>
-					<MaterialIcon name={'MdArrowRight'} />
-				</Button>
+					<Button
+						disabled={rightButtonEnabled}
+						className={styles.rightButton}
+						onClick={() => handleSlide('next')}
+					>
+						<MaterialIcon name={'MdArrowRight'} />
+					</Button>
+				</motion.div>
 			</div>
-			<AnimatePresence>
-				<motion.ul
-					className={styles.rowWrapper}
-					initial={{ x: 0 }}
-					animate={{
-						x: -transformOffset,
-					}}
-				>
-					{renderItemsByIndex}
-				</motion.ul>
-			</AnimatePresence>
+			{renderItemsByIndex}
 		</article>
 	)
 }
 
 export default Slider
 
-// const [indexToRender] = useMemo(() => {
-// 	const numbers: number[] = []
-// 	for (let i = currentPagesSlide; i < slideAmount; i++) {
-// 		if (i < showAmount + currentPagesSlide) {
-// 			numbers.push(i)
-// 		}
+// const renderItemsByPosition = useMemo(() => {
+// 	if (isLoading) {
+// 		return null
 // 	}
-// 	return [[...numbers]]
-// }, [currentPagesSlide, showAmount, slideAmount])
-
-// const skeletons = useMemo(() => {
-// 	return new Array(6).fill(null).map((_, index) => (
-// 		<motion.div
-// 			initial={{ x: 500 * slideDirection }}
-// 			animate={{ x: 0 }}
-// 			key={index}
-// 			className={styles.slideItem}
-// 		>
-// 			<SkeletonCard key={index} />
-// 		</motion.div>
-// 	))
-// }, [])
-
-// const renderItems = useMemo(
-// 	() =>
-// 		data &&
-// 		data.map((value, index) => (
-// 			<motion.div
-// 				initial={{ x: 500 * slideDirection }}
-// 				animate={{ x: 0 }}
-// 				key={value.id}
-// 				className={styles.slideItem}
+//
+// 	// const
+// 	// const dataToRender = (itemsToRender % itemsAmount) !== 0? data.
+//
+// 	return (
+// 		<AnimatePresence>
+// 			<motion.ul
+// 				className={styles.rowWrapper}
+// 				style={{ width: CardParams.width * itemsAmountToRender }}
+// 				initial={{ x: 0 }}
+// 				animate={{
+// 					x: -transformPositionOffset,
+// 				}}
 // 			>
-// 				<AnimeCard item={value} />
-// 			</motion.div>
-// 		)),
-// 	[data, isLoading]
-// )
+// 				{data.map((anime, index) => {
+// 					return (
+// 						<motion.li
+// 							key={anime.id}
+// 							className={classNames(styles.slideItem)}
+// 						>
+// 							<AnimeCard item={anime} isLoading={isLoading} />
+// 						</motion.li>
+// 					)
+// 				})}
+// 			</motion.ul>
+// 		</AnimatePresence>
+// 	)
+// }, [data, isLoading, slideOffset, itemsAmountToRender, itemsAmount])

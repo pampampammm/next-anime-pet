@@ -36,7 +36,7 @@ export const AnimeService = {
 		)
 	},
 	async getAll(
-		params = 'https://kitsu.io/api/edge/anime?page[limit]=10&page[offset]=0'
+		params = 'https://kitsu.io/api/edge/anime?page[limit]=7&page[offset]=0'
 	) {
 		return await axiosAPI
 			.get<AnimeDataResponse>(params)
